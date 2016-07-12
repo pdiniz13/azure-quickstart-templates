@@ -84,6 +84,7 @@
   },
   "variables": {
     "templateBaseUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mysql-mha-haproxy-ubuntu/nested/",
+    "NewOrExistingTemplate": "[concat(variables('templateBaseUrl'), 'NewOrExistingTemplate.json')]",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
     "haproxyTemplateUrl": "[concat(variables('templateBaseUrl'), 'haproxy-resources.json')]",
     "masterTemplateUrl": "[concat(variables('templateBaseUrl'), 'master-resources.json')]",
