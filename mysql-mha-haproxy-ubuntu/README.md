@@ -101,13 +101,13 @@ $nohup masterha_manager --conf=/etc/app1.cnf < /dev/null > /var/log/masterha/app
 
 6 at haproxy node, start master ip check script. the script 1st parameter is master ip, the 2nd parameter is the candidate master ip(will take over master role when the original master fails), the order is very important!
 
-$sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.128.0.10 10.128.0.11 &
+$sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.0.0.10 10.0.0.11 > /var/log/masterha/app1/app1.log 2>&1 &
 
 
 
 7 at haproxy node, start slave ip check script. the parameters mean slave server ip addresses.
 
-$sudo nohup bash /usr/local/haproxy/slave_ip_check.sh 10.128.0.11 10.128.0.12 &
+$sudo nohup bash /usr/local/haproxy/slave_ip_check.sh 10.0.0.11 10.0.0.12 > ipcheck.log 2>&1 &
 
 
 
