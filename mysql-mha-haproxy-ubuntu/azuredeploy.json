@@ -93,23 +93,23 @@
     "apiVersion": "2015-01-01",
     "networkSettings": {
       "virtualNetworkName": "[parameters('virtualNetworkName')]",
-      "addressPrefix": "10.24.0.0/16",
+      "addressPrefix": "10.128.0.0/16",
       "subnet": {
         "dse": {
           "name": "dse",
-          "prefix": "10.24.0.0/24",
+          "prefix": "10.128.0.0/24",
           "vnet": "[parameters('virtualNetworkName')]"
         }
       },
       "statics": {
         "clusterRange": {
-          "base": "10.24.0.",
+          "base": "10.128.0.",
           "start": 5
         },
-        "haproxyIp": "10.24.0.9",
-		"masterIp": "10.24.0.10",
-		"slaveIp01": "10.24.0.11",
-		"slaveIp02": "10.24.0.12"
+        "haproxyIp": "10.128.0.9",
+		"masterIp": "10.128.0.10",
+		"slaveIp01": "10.128.0.11",
+		"slaveIp02": "10.128.0.12"
       }
     },
     "haproxyOsSettings": {
