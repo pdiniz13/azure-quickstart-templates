@@ -34,21 +34,21 @@ manager_workdir=/var/log/masterha/app1
 manager_log=/var/log/masterha/app1/app1.log
 # working directory on MySQL servers
 remote_workdir=/var/log/masterha/app1
-secondary_check_script= masterha_secondary_check -s 10.0.0.11 -s 10.0.0.12
+secondary_check_script= masterha_secondary_check -s 10.24.0.11 -s 10.24.0.12
 ping_interval=1
 #master_ip_failover_script=/script/masterha/master_ip_failover
 #shutdown_script= /script/masterha/power_manager
 #report_script= /script/masterha/send_report
 
 [server1]
-hostname=10.0.0.10
+hostname=10.24.0.10
 
 [server2]
-hostname=10.0.0.11
+hostname=10.24.0.11
 candidate_master=1
 
 [server3]
-hostname=10.0.0.12
+hostname=10.24.0.12
 no_master=1
 EOF
 
@@ -101,12 +101,12 @@ frontend mysqlread-in
 
 backend mysqlwritepool                    
        balance roundrobin
-       server  mysql01 10.0.0.10:3306  weight 5 check inter 2000 rise 2 fall 3
+       server  mysql01 10.24.0.10:3306  weight 5 check inter 2000 rise 2 fall 3
 
 backend mysqlreadpool                    
        balance roundrobin
-        server  10.0.0.11 10.0.0.11:3306  weight 5 check inter 2000 rise 2 fall 3
-        server  10.0.0.12 10.0.0.12:3306  weight 5 check inter 2000 rise 2 fall 3
+        server  10.24.0.11 10.24.0.11:3306  weight 5 check inter 2000 rise 2 fall 3
+        server  10.24.0.12 10.24.0.12:3306  weight 5 check inter 2000 rise 2 fall 3
 EOF
 
 
