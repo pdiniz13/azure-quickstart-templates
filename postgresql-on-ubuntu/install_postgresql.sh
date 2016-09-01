@@ -97,7 +97,12 @@ install_postgresql_service() {
 	# Install PostgreSQL if it is not yet installed
 	if [ $(dpkg-query -W -f='${Status}' postgresql 2>/dev/null | grep -c "ok installed") -eq 0 ];
 	then
-	  apt-get -y install postgresql=9.3* postgresql-contrib=9.3* postgresql-client=9.3*
+	  apt-get -y install postgresql=9.5* postgresql-contrib=9.5* postgresql-client=9.5* unzip
+      wget http://api.pgxn.org/dist/plv8/1.5.3/plv8-1.5.3.zip
+      unzip plv8-1.5.3.zip
+      cd plv8-1.5.3
+      make static
+      cd ..
 	fi
 	
 	logger "Done installing PostgreSQL..."
@@ -140,7 +145,7 @@ configure_streaming_replication() {
 	service postgresql stop
 
 	# Update configuration files
-	cd /etc/postgresql/9.3/main
+	cd /etc/postgresql/9.5/main
 
 	if grep -Fxq "# install_postgresql.sh" pg_hba.conf
 	then
@@ -209,7 +214,7 @@ install_postgresql_service
 setup_datadisks
 
 service postgresql start
-
+psql -c 'CREATE EXTENSION plv8'
 configure_streaming_replication
 
 service postgresql start
