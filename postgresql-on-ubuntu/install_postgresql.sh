@@ -97,12 +97,7 @@ install_postgresql_service() {
 	# Install PostgreSQL if it is not yet installed
 	if [ $(dpkg-query -W -f='${Status}' postgresql 2>/dev/null | grep -c "ok installed") -eq 0 ];
 	then
-	  apt-get -y install postgresql=9.5* postgresql-contrib=9.5* postgresql-client=9.5* unzip
-      wget http://api.pgxn.org/dist/plv8/1.5.3/plv8-1.5.3.zip
-      unzip plv8-1.5.3.zip
-      cd plv8-1.5.3
-      make static
-      cd ..
+	  apt-get -y install postgresql=9.5* postgresql-server-dev-9.5 postgresql-contrib=9.5* postgresql-client=9.5* unzip make
 	fi
 	
 	logger "Done installing PostgreSQL..."
