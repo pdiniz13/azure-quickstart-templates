@@ -4,6 +4,7 @@
   "parameters":{
     "existingVMSSName":{
       "type":"string",
+      "defaultValue": "dcos-agent-private-372C4980-vmss0",
       "metadata":{
         "description":"Name of existing VM Scale Set"
       }
@@ -16,7 +17,7 @@
     },
     "vmSku": {
       "type": "string",
-      "defaultValue": "Standard_D1_v2",
+      "defaultValue": "Standard_D3",
       "metadata": {
         "description": "Size of VMs in the VM Scale Set."
       }
