@@ -24,11 +24,11 @@ The 4 nodes are under the same subnet. Their IP info is below:
 
 haproxy ip: 10.128.0.9
 
-mysql master ip: 10.128.0.10
+mysql master ip: 10.128.0.11
 
-mysql slave01 ip: 10.128.0.11
+mysql slave01 ip: 10.128.0.12
 
-mysql slave02 ip: 10.128.0.12
+mysql slave02 ip: 10.128.0.10
 
 
 ##After deployment, you must do the follow things:
@@ -101,17 +101,17 @@ $nohup masterha_manager --conf=/etc/app1.cnf < /dev/null > /var/log/masterha/app
 
 6 at haproxy node, start master ip check script. the script 1st parameter is master ip, the 2nd parameter is the candidate master ip(will take over master role when the original master fails), the order is very important!
 
-$sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.0.0.10 10.0.0.11 > /var/log/masterha/app1/app1.log 2>&1 &
+$sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.0.0.11 10.0.0.12 > /var/log/masterha/app1/app1.log 2>&1 &
 
 
 
 7 at haproxy node, start slave ip check script. the parameters mean slave server ip addresses.
 
-$sudo nohup bash /usr/local/haproxy/slave_ip_check.sh 10.0.0.11 10.0.0.12 > ipcheck.log 2>&1 &
+$sudo nohup bash /usr/local/haproxy/slave_ip_check.sh 10.0.0.12 10.0.0.10 > ipcheck.log 2>&1 &
 
 
 
-Now the mha plus haproxy works. Once the master fails, the candiate master 10.128.0.11 will become the new master automatically, the slave02 will change master to 10.128.0.11 automatically. So then you fix original master issue, sync the data with new master, then brings it online, it must become the slave role. Then you go to haproxy node, delete /var/log/masterha/app1/app1.failover.complete file, start mha manager, master ip check script and slave ip check script again. Remember this time for the master ip check script, you execute sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.128.0.11 10.128.0.10 & 
+Now the mha plus haproxy works. Once the master fails, the candiate master 10.128.0.12 will become the new master automatically, the slave02 will change master to 10.128.0.12 automatically. So then you fix original master issue, sync the data with new master, then brings it online, it must become the slave role. Then you go to haproxy node, delete /var/log/masterha/app1/app1.failover.complete file, start mha manager, master ip check script and slave ip check script again. Remember this time for the master ip check script, you execute sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.128.0.12 10.128.0.10 & 
 
 
 
