@@ -22,7 +22,7 @@ mysql -uroot -p$mysqlPassword -e "grant replication slave on *.* to 'repluser'@'
 service mysql restart
 
 #master-slave replication
-mysql -uroot -p$mysqlPassword -e "change master to master_host='10.64.0.10',master_user='repluser',master_password='replpass';start slave;"
+mysql -uroot -p$mysqlPassword -e "change master to master_host='172.23.0.10',master_user='repluser',master_password='replpass';start slave;"
 slaveStatus=`mysql -uroot -p$mysqlPassword -e "show slave status\G" |grep -i "Running: Yes"|wc -l`
 if [[ $slaveStatus -ne 2 ]];then
 echo "master-slave replication issue!"
