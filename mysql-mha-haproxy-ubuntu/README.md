@@ -1,10 +1,10 @@
 # Install MySQL MHA + Haproxy Solution
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fmysql-mha-haproxy-ubuntu%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fpdiniz13%2Fazure-quickstart-templates%2Fmaster-new%2Fmysql-mha-haproxy-ubuntu%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 <a href="
-http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2Fmysql-mha-haproxy-ubuntu%2Fazuredeploy.json" target="_blank">
+http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fpdiniz13%2Fazure-quickstart-templates%2Fmaster-new%2Fmysql-mha-haproxy-ubuntu%2Fazuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
@@ -22,13 +22,13 @@ The mysql nodes only has private ip address, and it's static ip address.
 
 The 4 nodes are under the same subnet. Their IP info is below:
 
-haproxy ip: 10.0.0.9
+haproxy ip: 10.64.0.9
 
-mysql master ip: 10.0.0.10
+mysql master ip: 10.64.0.10
 
-mysql slave01 ip: 10.0.0.11
+mysql slave01 ip: 10.64.0.11
 
-mysql slave02 ip: 10.0.0.12
+mysql slave02 ip: 10.64.0.12
 
 
 ##After deployment, you must do the follow things:
@@ -39,35 +39,35 @@ mysql slave02 ip: 10.0.0.12
 
 $ssh-keygen -t rsa
 
-$ssh-copy-id 10.0.0.10
+$ssh-copy-id 10.64.0.10
 
-$ssh-copy-id 10.0.0.11
+$ssh-copy-id 10.64.0.11
 
-$ssh-copy-id 10.0.0.12
+$ssh-copy-id 10.64.0.12
 
 1.2. connect to master node. through haproxy node to connect to master node, then execute below
 
 $ssh-keygen -t rsa
 
-$ssh-copy-id 10.0.0.11
+$ssh-copy-id 10.64.0.11
 
-$ssh-copy-id 10.0.0.12
+$ssh-copy-id 10.64.0.12
 
 1.3. connect to slave01 node. through haproxy node to connect to slave01 node, then execute below
 
 $ssh-keygen -t rsa
 
-$ssh-copy-id 10.0.0.10
+$ssh-copy-id 10.64.0.10
 
-$ssh-copy-id 10.0.0.12
+$ssh-copy-id 10.64.0.12
 
 1.4. connect to slave02 node. through haproxy node to connect to slave02 node, then execute below
 
 $ssh-keygen -t rsa
 
-$ssh-copy-id 10.0.0.10
+$ssh-copy-id 10.64.0.10
 
-$ssh-copy-id 10.0.0.11
+$ssh-copy-id 10.64.0.11
 
 
 
@@ -101,17 +101,17 @@ $nohup masterha_manager --conf=/etc/app1.cnf < /dev/null > /var/log/masterha/app
 
 6 at haproxy node, start master ip check script. the script 1st parameter is master ip, the 2nd parameter is the candidate master ip(will take over master role when the original master fails), the order is very important!
 
-$sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.0.0.10 10.0.0.11 &
+$sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.64.0.10 10.64.0.11 &
 
 
 
 7 at haproxy node, start slave ip check script. the parameters mean slave server ip addresses.
 
-$sudo nohup bash /usr/local/haproxy/slave_ip_check.sh 10.0.0.11 10.0.0.12 &
+$sudo nohup bash /usr/local/haproxy/slave_ip_check.sh 10.64.0.11 10.64.0.12 &
 
 
 
-Now the mha plus haproxy works. Once the master fails, the candiate master 10.0.0.11 will become the new master automatically, the slave02 will change master to 10.0.0.11 automatically. So then you fix original master issue, sync the data with new master, then brings it online, it must become the slave role. Then you go to haproxy node, delete /var/log/masterha/app1/app1.failover.complete file, start mha manager, master ip check script and slave ip check script again. Remember this time for the master ip check script, you execute sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.0.0.11 10.0.0.10 & 
+Now the mha plus haproxy works. Once the master fails, the candiate master 10.64.0.11 will become the new master automatically, the slave02 will change master to 10.64.0.11 automatically. So then you fix original master issue, sync the data with new master, then brings it online, it must become the slave role. Then you go to haproxy node, delete /var/log/masterha/app1/app1.failover.complete file, start mha manager, master ip check script and slave ip check script again. Remember this time for the master ip check script, you execute sudo nohup bash /usr/local/haproxy/master_ip_check.sh 10.64.0.11 10.64.0.10 & 
 
 
 
