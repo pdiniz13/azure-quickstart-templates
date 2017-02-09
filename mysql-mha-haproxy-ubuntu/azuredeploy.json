@@ -85,7 +85,7 @@
     }
   },
   "variables": {
-    "templateBaseUrl": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mysql-mha-haproxy-ubuntu/nested/",
+    "templateBaseUrl": "https://raw.githubusercontent.com/pdiniz13/azure-quickstart-templates/master-new/mysql-mha-haproxy-ubuntu/nested/",
     "sharedTemplateUrl": "[concat(variables('templateBaseUrl'), 'shared-resources.json')]",
     "haproxyTemplateUrl": "[concat(variables('templateBaseUrl'), 'haproxy-resources.json')]",
     "masterTemplateUrl": "[concat(variables('templateBaseUrl'), 'master-resources.json')]",
@@ -122,7 +122,7 @@
         "version": "latest"
       },
       "scripts": [
-        "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mysql-mha-haproxy-ubuntu/scripts/haproxy.sh"
+        "https://raw.githubusercontent.com/pdiniz13/azure-quickstart-templates/master-new/mysql-mha-haproxy-ubuntu/scripts/haproxy.sh"
       ]
     },
     "masterOsSettings": {
@@ -133,7 +133,7 @@
         "version": "latest"
       },
       "scripts": [
-        "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mysql-mha-haproxy-ubuntu/scripts/master.sh"
+        "https://raw.githubusercontent.com/pdiniz13/azure-quickstart-templates/master-new/mysql-mha-haproxy-ubuntu/scripts/master.sh"
       ]
     },
     "slaveOsSettings01": {
@@ -144,7 +144,7 @@
         "version": "latest"
       },
       "scripts": [
-        "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mysql-mha-haproxy-ubuntu/scripts/slave01.sh"
+        "https://raw.githubusercontent.com/pdiniz13/azure-quickstart-templates/master-new/mysql-mha-haproxy-ubuntu/scripts/slave01.sh"
       ]
     },
     "slaveOsSettings02": {
@@ -155,7 +155,7 @@
         "version": "latest"
       },
       "scripts": [
-        "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/mysql-mha-haproxy-ubuntu/scripts/slave02.sh"
+        "https://raw.githubusercontent.com/pdiniz13/azure-quickstart-templates/master-new/mysql-mha-haproxy-ubuntu/scripts/slave02.sh"
       ]
     }
   },
